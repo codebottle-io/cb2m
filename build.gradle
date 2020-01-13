@@ -1,13 +1,13 @@
 apply plugin: 'application'
 
-group '%groupid%'
-version '%version%'
+group 'io.codebottle'
+version '0.0.0'
 
 apply from: 'gradle/ext.gradle'
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
-mainClassName = '%mainclass%'
+sourceCompatibility = 11
+targetCompatibility = 11
+mainClassName = 'io.codebottle.maven.Server'
 
 wrapper {
     gradleVersion = '5.6'
@@ -24,4 +24,5 @@ tasks.withType(JavaCompile) {
 repositories.jcenter()
 
 dependencies {
+    implementation 'io.codebottle:api:0.1.0'
 }

@@ -2,13 +2,13 @@ version: "2.0"
 
 services:
     cobalton:
-        image: %project_name%:public
-        container_name: %project_name%-public
+        image: codebottle-maven:public
+        container_name: codebottle-maven-public
         restart: on-failure
         build:
             context: .
             dockerfile: Dockerfile
         volumes:
-            - /var/bots/%Project_Name%:/app/data:rw
+            - /var/codebottle-maven:/app/data:rw
         working_dir: /app
-        entrypoint: /app/binaries/bin/%Project_Name%
+        entrypoint: /app/binaries/bin/codebottle-maven
