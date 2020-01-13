@@ -1,0 +1,27 @@
+apply plugin: 'application'
+
+group '%groupid%'
+version '%version%'
+
+apply from: 'gradle/ext.gradle'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+mainClassName = '%mainclass%'
+
+wrapper {
+    gradleVersion = '5.6'
+    distributionUrl = "https://services.gradle.org/distributions/gradle-$gradleVersion-all.zip"
+}
+
+apply from: 'gradle/docker.gradle'
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+    options.incremental = true
+}
+
+repositories.jcenter()
+
+dependencies {
+}
