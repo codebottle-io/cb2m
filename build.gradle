@@ -25,4 +25,7 @@ repositories.jcenter()
 
 dependencies {
     implementation 'io.codebottle:api:0.1.0'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.10.0.pr1'
+
+    compileOnly 'org.jetbrains:annotations:17.0.0'
 }
