@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.file.Files;
 import java.time.temporal.ChronoField;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -116,6 +117,7 @@ public enum ServerHandler implements HttpHandler {
                 }
 
                 // prepare compiler environment
+                Server.TMP.
                 // TODO: 13.01.2020
                 
                 // compile

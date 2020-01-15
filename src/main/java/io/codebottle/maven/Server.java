@@ -1,6 +1,8 @@
 package io.codebottle.maven;
 
+import java.io.File;
 import java.net.InetSocketAddress;
+import java.nio.file.Path;
 
 import com.sun.net.httpserver.HttpServer;
 import io.codebottle.api.CodeBottle;
@@ -8,6 +10,7 @@ import io.codebottle.api.CodeBottle;
 public final class Server {
     public static Server SERVER;
     public static CodeBottle CODEBOTTLE;
+    public static File TMP;
 
     private final HttpServer httpServer;
 
@@ -31,5 +34,12 @@ public final class Server {
                 //.token(System.getenv("CODEBOTTLE_TOKEN")) todo Uncomment when API key was added
                 .build()
                 .waitForLazyLoading();
+        TMP = new File("/tmp/cb2m/");
+        if (!TMP.exists() && TMP.mkdirs()) {
+            TMP.deleteOnExit();
+            System.out.printf("Created temporary server directory %s", TMP.getAbsolutePath());
+            if (!TMP.canWrite())
+                throw new IllegalStateException(String.format("Cannot write to temporary directory %s", TMP.getAbsolutePath()));
+        }
     }
 }
