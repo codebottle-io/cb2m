@@ -1,6 +1,7 @@
 package io.codebottle.maven;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -8,6 +9,7 @@ import java.nio.file.Files;
 import java.time.temporal.ChronoField;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -17,6 +19,7 @@ import com.sun.net.httpserver.HttpHandler;
 import io.codebottle.api.model.Snippet;
 import io.codebottle.api.rest.HTTPCodes;
 
+import static java.io.File.separatorChar;
 import static io.codebottle.maven.exception.ResponseHelper.error;
 import static io.codebottle.maven.exception.ResponseHelper.write;
 
@@ -38,6 +41,8 @@ public enum ServerHandler implements HttpHandler {
 
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
+        final UUID uuid = UUID.randomUUID();
+
         final String uri = httpExchange.getRequestURI().toString();
         System.out.printf("Handling %s-Request @ %s", httpExchange.getRequestMethod(), uri);
 
@@ -117,7 +122,17 @@ public enum ServerHandler implements HttpHandler {
                 }
 
                 // prepare compiler environment
-                Server.TMP.
+                final File dir = new File(Server.TMP.getAbsolutePath() + separatorChar + "job-compilation-" + uuid);
+                if (!dir.mkdir()) error(HTTPCodes.INTERNAL_SERVER_ERROR, httpExchange, new IllegalStateException(
+                        "Could not create job directory."));
+                dir.deleteOnExit();
+
+                final File build = new File(dir.getAbsolutePath() + separatorChar + "build");
+                if (!dir.mkdir()) error(HTTPCodes.INTERNAL_SERVER_ERROR, httpExchange, new IllegalStateException(
+                        "Could not create compiler build directory."));
+                dir.deleteOnExit();
+
+                final
                 // TODO: 13.01.2020
                 
                 // compile
