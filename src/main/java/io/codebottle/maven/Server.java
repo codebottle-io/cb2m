@@ -16,7 +16,7 @@ public final class Server {
 
     private Server() {
         try {
-            this.httpServer = HttpServer.create(InetSocketAddress.createUnresolved("localhost", 80), 0);
+            this.httpServer = HttpServer.create(InetSocketAddress.createUnresolved("localhost", 4226), 0);
 
             httpServer.createContext("/", ServerHandler.INSTANCE);
         } catch (Exception e) {
